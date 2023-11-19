@@ -54,12 +54,13 @@ let remindersController = {
       // Update the reminder with the new title and description
       database.cindy.reminders[reminderIndex].title = req.body.title; 
       database.cindy.reminders[reminderIndex].description = req.body.description; 
-      database.cindy.reminders[reminderIndex].completed = req.body.completed !== undefined;
-      console.log(req.body.completed)
+      database.cindy.reminders[reminderIndex].completed = req.body.completed === 'true';
       // Go back to the reminders page
       res.redirect("/reminders");
     }
   },
+
+  
 
   // Just deletes the reminder that is listed 
   delete: (req, res) => {
