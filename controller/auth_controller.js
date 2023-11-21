@@ -14,7 +14,6 @@ let authController = {
     for (let user of database.database) {
       if (req.body.email === user.email && req.body.password === user.password) {
         userFound = true;
-        console.log(userFound);
         break;
       }
     }
