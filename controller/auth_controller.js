@@ -10,9 +10,20 @@ let authController = {
   },
 
   loginSubmit: (req, res) => {
-    console.log(database)
-    // implement later
-    
+    let userFound = false;
+    for (let user of database.database) {
+      if (req.body.email === user.email && req.body.password === user.password) {
+        userFound = true;
+        console.log(userFound);
+        break;
+      }
+    }
+
+    if (userFound) {
+      res.redirect("/reminders");
+    } else {
+      res.redirect("/auth/login");
+    }
   },
 
   registerSubmit: (req, res) => {
