@@ -47,9 +47,9 @@ app.use(passport.session());
 
 // 👌 Ignore for now
 app.get("/register", authController.register);
-app.get("/login", authController.login);
+app.get("/auth/login", authController.login);
 app.post("/register", authController.registerSubmit);
-app.post("/login", authController.loginSubmit);
+app.post("/auth/login", authController.loginSubmit);
 
 //from Passport
 app.use((req, res, next) => {

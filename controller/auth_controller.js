@@ -10,7 +10,9 @@ let authController = {
   },
 
   loginSubmit: (req, res) => {
+    console.log(database)
     // implement later
+    
   },
 
   registerSubmit: (req, res) => {
