@@ -8,9 +8,10 @@ let authController = {
   register: (req, res) => {
     res.render("auth/register");
   },
-
+  //(request, response)
   loginSubmit: (req, res) => {
     let userFound = false;
+    console.log(req.body)
     for (let user of database.database) {
       if (req.body.email === user.email && req.body.password === user.password) {
         userFound = true;

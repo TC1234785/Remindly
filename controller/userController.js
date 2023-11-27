@@ -1,6 +1,7 @@
 const userModel = require("../database").userModel;
 
 const getUserByEmailIdAndPassword = (email, password) => {
+  //sends to usermodel func in database.js
   let user = userModel.findOne(email);
   if (user) {
     if (isUserValid(user, password)) {

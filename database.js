@@ -4,7 +4,7 @@ const database = [
     name: "Jimmy Smith",
     email: "jimmy123@gmail.com",
     password: "jimmy123!",
-    reminders: ["dsflkjsdlfk"],
+    reminders: [{ id: 1, title: "Grocery shopping", description: "Buy milk and bread from safeway", completed: false,}],
   },
   {
     id: 2,
@@ -24,6 +24,7 @@ const database = [
 
 const userModel = {
   findOne: (email) => {
+    //checks database for matching user
     const user = database.find((user) => user.email === email);
     if (user) {
       return user;

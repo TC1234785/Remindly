@@ -15,13 +15,18 @@ const userController = require("../controller/userController");
   }
 ))); */
 
+
 const localLogin = new LocalStrategy(
   {
+    //using email instead of username
     usernameField: "email",
     passwordField: "password",
   },
+  //function to check if login is in database
   (email, password, done) => {
+    //leads to userController.js
     const user = userController.getUserByEmailIdAndPassword(email, password);
+    //call done function, return user or false
     return user
       ? done(null, user)
       : done(null, false, {
@@ -29,11 +34,12 @@ const localLogin = new LocalStrategy(
         });
   }
 );
-
+//creates a new session using user.id (req.session.passport.user)
+//stores user info in req.user
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
-
+//when refreshing page, function takes info stored in serializeUser (userid) to lookup in database
 passport.deserializeUser(function (id, done) {
   let user = userController.getUserById(id);
   if (user) {
@@ -42,5 +48,5 @@ passport.deserializeUser(function (id, done) {
     done({ message: "User not found" }, null);
   }
 });
-
+//use own local strategy
 module.exports = passport.use(localLogin);
