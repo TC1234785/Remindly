@@ -2,9 +2,18 @@ let database = require("../database");
 
 let remindersController = {
   list: (req, res) => {
-    console.log(database.database[0].reminders)
-    console.log('hello')
-    res.render("reminder/index", { reminders: database.database[0].reminders });
+    const user_id = req.session.passport.user;
+    let user = {};
+
+    for (let person of database.database) {
+      console.log(person.name);
+      if (person.id == user_id) {
+        user = person;
+      }
+    }
+    res.render("reminder/index", { reminders: user.reminders });
+    console.log("hello");
+    console.log(user);
   },
 
   new: (req, res) => {
@@ -48,39 +57,43 @@ let remindersController = {
     // implementation here 👈
     console.log(req.body);
     // Find the reminder that has the same title
-    let reminderToFind = req.params.id; 
-    let reminderIndex = database.userModel.reminders.findIndex(function (reminder) {
-      return reminder.id == reminderToFind; 
-    })   
+    let reminderToFind = req.params.id;
+    let reminderIndex = database.userModel.reminders.findIndex(function (
+      reminder
+    ) {
+      return reminder.id == reminderToFind;
+    });
     if (reminderIndex !== -1) {
       // Update the reminder with the new title and description
-      database.userModel.reminders[reminderIndex].title = req.body.title; 
-      database.userModel.reminders[reminderIndex].description = req.body.description; 
-      database.userModel.reminders[reminderIndex].completed = req.body.completed === 'true';
+      database.userModel.reminders[reminderIndex].title = req.body.title;
+      database.userModel.reminders[reminderIndex].description =
+        req.body.description;
+      database.userModel.reminders[reminderIndex].completed =
+        req.body.completed === "true";
       // Go back to the reminders page
       res.redirect("/reminders");
     }
   },
 
-  
-
-  // Just deletes the reminder that is listed 
+  // Just deletes the reminder that is listed
   delete: (req, res) => {
     // implementation here 👈
-    // Find the reminder by id 
+    // Find the reminder by id
     let reminderToFind = req.params.id;
-    // using findIndex to go through the dictionary to find the first element that matches 
-    let reminderIndex = database.userModel.reminders.findIndex(function (reminder) {
-      // returns based on matched id 
+    // using findIndex to go through the dictionary to find the first element that matches
+    let reminderIndex = database.userModel.reminders.findIndex(function (
+      reminder
+    ) {
+      // returns based on matched id
       return reminder.id == reminderToFind;
     });
     // ???
     if (reminderIndex !== -1) {
-      // Gets rid of the reminder using the splice method and the index. 
-      // The value of 1 indicates only one item should be removed at this time. 
+      // Gets rid of the reminder using the splice method and the index.
+      // The value of 1 indicates only one item should be removed at this time.
       database.userModel.reminders.splice(reminderIndex, 1);
     }
-    // go back to the reminders page when done 
+    // go back to the reminders page when done
     res.redirect("/reminders");
   },
 };
