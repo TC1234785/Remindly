@@ -2,7 +2,8 @@ let database = require("../database");
 
 let remindersController = {
   list: (req, res) => {
-    res.render("reminder/index", { reminders: database.cindy.reminders });
+    console.log("made it here");
+    res.render("reminder/index", { reminders: req.user.reminders });
   },
 
   new: (req, res) => {
@@ -11,30 +12,31 @@ let remindersController = {
 
   listOne: (req, res) => {
     let reminderToFind = req.params.id;
-    let searchResult = database.cindy.reminders.find(function (reminder) {
+    let searchResult = req.user.reminders.find(function (reminder) {
       return reminder.id == reminderToFind;
     });
+    console.log(searchResult)
     if (searchResult != undefined) {
       res.render("reminder/single-reminder", { reminderItem: searchResult });
     } else {
-      res.render("reminder/index", { reminders: database.cindy.reminders });
+      res.render("reminder/index", { reminders: req.user.reminders });
     }
   },
 
   create: (req, res) => {
     let reminder = {
-      id: database.cindy.reminders.length + 1,
+      id: req.user.reminders.length + 1,
       title: req.body.title,
       description: req.body.description,
       completed: false,
     };
-    database.cindy.reminders.push(reminder);
+    req.user.reminders.push(reminder);
     res.redirect("/reminders");
   },
 
   edit: (req, res) => {
     let reminderToFind = req.params.id;
-    let searchResult = database.cindy.reminders.find(function (reminder) {
+    let searchResult = req.user.reminders.find(function (reminder) {
       return reminder.id == reminderToFind;
     });
     res.render("reminder/edit", { reminderItem: searchResult });
@@ -46,39 +48,43 @@ let remindersController = {
     // implementation here 👈
     console.log(req.body);
     // Find the reminder that has the same title
-    let reminderToFind = req.params.id; 
-    let reminderIndex = database.cindy.reminders.findIndex(function (reminder) {
-      return reminder.id == reminderToFind; 
-    })   
+    let reminderToFind = req.params.id;
+    let reminderIndex = req.user.reminders.findIndex(function (
+      reminder
+    ) {
+      return reminder.id == reminderToFind;
+    });
     if (reminderIndex !== -1) {
       // Update the reminder with the new title and description
-      database.cindy.reminders[reminderIndex].title = req.body.title; 
-      database.cindy.reminders[reminderIndex].description = req.body.description; 
-      database.cindy.reminders[reminderIndex].completed = req.body.completed === 'true';
+      req.user.reminders[reminderIndex].title = req.body.title;
+      req.user.reminders[reminderIndex].description =
+        req.body.description;
+      req.user.reminders[reminderIndex].completed =
+        req.body.completed === "true";
       // Go back to the reminders page
       res.redirect("/reminders");
     }
   },
 
-  
-
-  // Just deletes the reminder that is listed 
+  // Just deletes the reminder that is listed
   delete: (req, res) => {
     // implementation here 👈
-    // Find the reminder by id 
+    // Find the reminder by id
     let reminderToFind = req.params.id;
-    // using findIndex to go through the dictionary to find the first element that matches 
-    let reminderIndex = database.cindy.reminders.findIndex(function (reminder) {
-      // returns based on matched id 
+    // using findIndex to go through the dictionary to find the first element that matches
+    let reminderIndex = req.user.reminders.findIndex(function (
+      reminder
+    ) {
+      // returns based on matched id
       return reminder.id == reminderToFind;
     });
     // ???
     if (reminderIndex !== -1) {
-      // Gets rid of the reminder using the splice method and the index. 
-      // The value of 1 indicates only one item should be removed at this time. 
-      database.cindy.reminders.splice(reminderIndex, 1);
+      // Gets rid of the reminder using the splice method and the index.
+      // The value of 1 indicates only one item should be removed at this time.
+      req.user.reminders.splice(reminderIndex, 1);
     }
-    // go back to the reminders page when done 
+    // go back to the reminders page when done
     res.redirect("/reminders");
   },
 };
