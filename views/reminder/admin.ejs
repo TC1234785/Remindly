@@ -1,0 +1,21 @@
+<div class="container">
+    <h1 class="page-header">Dashboard</h1>
+  
+    <div class="admin-welcome">
+      <h2>Welcome, Admin!</h2>
+    </div>
+  
+    <ul class="list-group">
+      <!-- You can list admin-specific items here -->
+      <li class="list-group-item">
+        <h3><strong>Admin Item Title</strong></h3>
+        <h4>Admin Item Description</h4>
+  
+        <a class="btn btn-warning" href="/admin/item/edit">Edit</a>
+  
+        <form class="deleteForm" method="POST" action="/admin/item/delete">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </li>
+    </ul>
+  </div>
