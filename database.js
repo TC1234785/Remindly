@@ -5,7 +5,7 @@ const database = [
     email: "jimmy123@gmail.com",
     // password: "jimmy123!",
     password: "1",
-    reminders: [{ id: 1, title: "Grocery shopping", description: "Buy milk and bread from safeway", completed: false,}],
+    reminders: [{ id: 1, title: "Grocery shopping", description: "Buy milk and bread from safeway", completed: false,}, { id: 2, title: "Final Exams", description: "Pray to pass everything", completed: false,}],
   },
   {
     id: 2,

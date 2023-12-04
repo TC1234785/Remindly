@@ -11,12 +11,12 @@ let authController = {
   },
   //(request, response)
   loginSubmit: (req, res) => {
-    passport.authenticate("local", {
-      successRedirect: "/reminders",
-      failureRedirect: "/auth/login",
-    })(req, res);
-    console.log(req.user);
-    console.log("help me");
+    // passport.authenticate("local", {
+    //   successRedirect: "/reminders",
+    //   failureRedirect: "/auth/login",
+    // })(req, res);
+    // console.log(req.user);
+    // console.log("help me");
     // const user = userController.getUserByEmailIdAndPassword(req.body.email, req.body.password);
     // console.log(user);
 
