@@ -15,7 +15,6 @@ const userController = require("../controller/userController");
   }
 ))); */
 
-
 const localLogin = new LocalStrategy(
   {
     //using email instead of username
@@ -26,17 +25,21 @@ const localLogin = new LocalStrategy(
   (email, password, done) => {
     //leads to userController.js
     const user = userController.getUserByEmailIdAndPassword(email, password);
+    // console.log(user);
     //call done function, return user or false
-    return user
-      ? done(null, user)
-      : done(null, false, {
-          message: "Your login details are not valid. Please try again",
-        });
+    if (user) {
+      return done(null, user);
+    } else {
+      done(null, false, {
+        message: "Your login details are not valid. Please try again",
+      });
+    }
   }
 );
 //creates a new session using user.id (req.session.passport.user)
 //stores user info in req.user
 passport.serializeUser(function (user, done) {
+  console.log(user);
   done(null, user.id);
 });
 //when refreshing page, function takes info stored in serializeUser (userid) to lookup in database

@@ -2,18 +2,8 @@ let database = require("../database");
 
 let remindersController = {
   list: (req, res) => {
-    const user_id = req.session.passport.user;
-    let user = {};
-
-    for (let person of database.database) {
-      console.log(person.name);
-      if (person.id == user_id) {
-        user = person;
-      }
-    }
-    res.render("reminder/index", { reminders: user.reminders });
-    console.log("hello");
-    console.log(user);
+    console.log("made it here");
+    res.render("reminder/index", { reminders: req.user.reminders });
   },
 
   new: (req, res) => {
