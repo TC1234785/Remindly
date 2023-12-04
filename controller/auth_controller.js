@@ -1,7 +1,5 @@
 let database = require("../database");
-const userController = require("./userController");
-const passport = require("../middleware/passport");
-
+let passport = require("../middleware/passport");
 
 let authController = {
   login: (req, res) => {
@@ -17,11 +15,11 @@ let authController = {
       successRedirect: "/reminders",
       failureRedirect: "/auth/login",
     })(req, res);
-    console.log(req.user)
-    console.log("sus")
+    console.log(req.user);
+    console.log("help me");
     // const user = userController.getUserByEmailIdAndPassword(req.body.email, req.body.password);
     // console.log(user);
-    
+
     // if (user) {
 
     // }
