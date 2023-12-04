@@ -2,7 +2,7 @@ const express = require("express");
 const passport = require("../middleware/passport");
 const { forwardAuthenticated } = require("../middleware/checkAuth");
 
-const router = express.Router();
+const app = express.Router();
 //if user is logged in and tried to go to login page
 app.get("/auth/login", forwardAuthenticated, (req, res) => res.render("login"));
 
@@ -32,4 +32,4 @@ app.get("/logout", (req, res) => {
   res.redirect("/auth/login");
 });
 
-module.exports = router;
+module.exports = app;

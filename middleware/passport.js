@@ -17,6 +17,7 @@ const userController = require("../controller/userController");
 
 
 const localLogin = new LocalStrategy(
+  
   {
     //using email instead of username
     usernameField: "email",

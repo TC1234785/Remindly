@@ -1,4 +1,7 @@
 let database = require("../database");
+const userController = require("./userController");
+const passport = require("../middleware/passport");
+
 
 let authController = {
   login: (req, res) => {
@@ -10,20 +13,32 @@ let authController = {
   },
   //(request, response)
   loginSubmit: (req, res) => {
-    let userFound = false;
-    console.log(req.body)
-    for (let user of database.database) {
-      if (req.body.email === user.email && req.body.password === user.password) {
-        userFound = true;
-        break;
-      }
-    }
+    passport.authenticate("local", {
+      successRedirect: "/reminders",
+      failureRedirect: "/auth/login",
+    })(req, res);
+    console.log(req.user)
+    console.log("sus")
+    // const user = userController.getUserByEmailIdAndPassword(req.body.email, req.body.password);
+    // console.log(user);
+    
+    // if (user) {
 
-    if (userFound) {
-      res.redirect("/reminders");
-    } else {
-      res.redirect("/auth/login");
-    }
+    // }
+
+    // let userFound = false;
+    // for (let user of database.database) {
+    //   if (req.body.email === user.email && req.body.password === user.password) {
+    //     userFound = true;
+    //     break;
+    //   }
+    // }
+
+    // if (userFound) {
+    //   res.redirect("/reminders");
+    // } else {
+    //   res.redirect("/auth/login");
+    // }
   },
 
   registerSubmit: (req, res) => {
