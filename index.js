@@ -57,6 +57,20 @@ app.post(
   })
 );
 
+app.get(
+  "/auth/github",
+  passport.authenticate("github", { scope: ["user:email"] })
+);
+
+app.get(
+  "/auth/github/callback",
+  passport.authenticate("github", { failureRedirect: "/login" }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect("/reminders");
+  }
+);
+
 // We are going to localhost:3001
 app.listen(3001, function () {
   console.log(

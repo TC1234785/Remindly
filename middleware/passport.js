@@ -1,22 +1,27 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const userController = require("../controller/userController");
+const GitHubStrategy = require("passport-github2").Strategy;
 
-/* const githubLogin = new GithubStrategy(
-  passport.use(new GitHubStrategy({
+const GITHUB_CLIENT_ID = "8422f9714f621a85a250";
+const GITHUB_CLIENT_SECRET = "fa49bd8b3c5c3cb58f4037e86618b8ad11cb4bb8";
+
+const githubLogin = new GitHubStrategy(
+  {
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+    callbackURL: "http://localhost:3001/auth/github/callback",
   },
-  function(accessToken, refreshToken, profile, done) {
+  function (accessToken, refreshToken, profile, done) {
+    console.log("I ENTERED HERE");
+    console.log(profile);
     User.findOrCreate({ githubId: profile.id }, function (err, user) {
       return done(err, user);
     });
   }
-))); */
+);
 
 const localLogin = new LocalStrategy(
-  
   {
     //using email instead of username
     usernameField: "email",
@@ -53,4 +58,4 @@ passport.deserializeUser(function (id, done) {
   }
 });
 //use own local strategy
-module.exports = passport.use(localLogin);
+module.exports = passport.use(localLogin).use(githubLogin);
