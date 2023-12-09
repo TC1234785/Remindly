@@ -5,8 +5,18 @@ let remindersController = {
     if (!req.user) {
       res.redirect('auth/login'); // replace '/login' with your login route
     } else {
+      const sessions = req.sessionStore.sessions;
+      const sessionArray = Object.entries(sessions).map(
+      ([sessionId, sessionData]) => {
+        const sessionObject = JSON.parse(sessionData);
+        return {
+          sessionId,
+          expires: sessionObject.cookie.expires,
+          user: sessionObject.passport ? sessionObject.passport.user : null,
+        };
+      });
       if (req.user.role === "admin") {
-        res.render("reminder/admin");
+        res.render("reminder/admin", { sessions: sessionArray });
       } else {
         res.render("reminder/index", { reminders: req.user.reminders });
       }
