@@ -1,9 +1,20 @@
 <div class="container">
     <h1 class="page-header">Dashboard</h1>
   
-    <div class="admin-welcome">
-      <h2>Welcome, Admin!</h2>
-    </div>
+    <h1>Active Sessions</h1>
+
+  <ul>
+    <% sessions.forEach(session => { %>
+      <li>
+        Session ID: <%= session.sessionId %><br>
+        Expires: <%= session.expires %><br>
+        User: <%= session.user %><br>
+        <form action="/revoke-session/<%= session.sessionId %>" method="post">
+          <button type="submit">Revoke Session</button>
+        </form>
+      </li>
+    <% }); %>
+  </ul>
   
     
   </div>

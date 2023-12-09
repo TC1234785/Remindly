@@ -42,6 +42,24 @@ let authController = {
   registerSubmit: (req, res) => {
     // implement later
   },
+  adminview: (req, res) => {
+    if (req.user.role === "admin") {
+     const sessions = req.sessionStore.sessions;
+     const sessionArray = Object.entries(sessions).map(
+       ([sessionId, sessionData]) => {
+         const sessionObject = JSON.parse(sessionData);
+         return {
+           sessionId,
+           expires: sessionObject.cookie.expires,
+           user: sessionObject.passport ? sessionObject.passport.user : null,
+         };
+       }
+       );
+       res.render("reminder/admin", {sessions: sessionArray});
+    } else {
+     res.render("auth/admin")
+    }
+  },
 };
 
 module.exports = authController;

@@ -57,6 +57,28 @@ app.post(
   })
 );
 
+app.post("/revoke-session/:sessionId", (req, res) => {
+  const { sessionId } = req.params;
+  req.sessionStore.destroy(sessionId, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      const sessions = req.sessionStore.sessions;
+      const sessionArray = Object.entries(sessions).map(
+        ([sessionId, sessionData]) => {
+          const sessionObject = JSON.parse(sessionData);
+          return {
+            sessionId,
+            expires: sessionObject.cookie.expires,
+            user: sessionObject.passport ? sessionObject.passport.user : null,
+          };
+        }
+      );
+      res.render("reminder/admin", {sessions: sessionArray});
+    }
+  });
+});
+
 app.get(
   "/auth/github",
   passport.authenticate("github", { scope: ["user:email"] })
