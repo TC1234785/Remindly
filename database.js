@@ -6,6 +6,7 @@ const database = [
     // password: "jimmy123!",
     password: "1",
     reminders: [{ id: 1, title: "Grocery shopping", description: "Buy milk and bread from safeway", completed: false,}, { id: 2, title: "Final Exams", description: "Pray to pass everything", completed: false,}],
+    role: "user",
   },
   {
     id: 2,
@@ -13,6 +14,7 @@ const database = [
     email: "johnny123@gmail.com",
     password: "johnny123!",
     reminders: [],
+    role: "user",
   },
   {
     id: 3,
@@ -20,7 +22,15 @@ const database = [
     email: "jonathan123@gmail.com",
     password: "jonathan123!",
     reminders: [],
+    role: "user",
   },
+  {
+    id: 4,
+    name: "Admin",
+    email: "admin@admin.com",
+    password: "admin",
+    reminders: [],
+    role: "admin",}
 ];
 
 const userModel = {

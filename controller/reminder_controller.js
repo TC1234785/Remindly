@@ -2,8 +2,15 @@ let database = require("../database");
 
 let remindersController = {
   list: (req, res) => {
-    console.log("made it here");
-    res.render("reminder/index", { reminders: req.user.reminders });
+    if (!req.user) {
+      res.redirect('auth/login'); // replace '/login' with your login route
+    } else {
+      if (req.user.role === "admin") {
+        res.render("reminder/admin");
+      } else {
+        res.render("reminder/index", { reminders: req.user.reminders });
+      }
+    }
   },
 
   new: (req, res) => {
