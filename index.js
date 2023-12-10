@@ -6,7 +6,7 @@ const path = require("path");
 const ejsLayouts = require("express-ejs-layouts");
 const session = require("express-session");
 const multer = require("multer");
-const upload = multer({ dest: '/public/uploads'})
+const upload = multer({ dest: 'public/uploads'})
 const app = express();
 
 
