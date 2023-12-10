@@ -15,7 +15,9 @@ const githubLogin = new GitHubStrategy(
   function (accessToken, refreshToken, profile, done) {
     console.log("I ENTERED HERE");
     console.log(profile);
-    User.findOrCreate({ githubId: profile.id }, function (err, user) {
+
+    if (userController.getUserById(profile.id)) {}
+    user.getUserByID({ githubId: profile.id }, function (err, user) {
       return done(err, user);
     });
   }

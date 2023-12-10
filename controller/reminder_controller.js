@@ -1,4 +1,5 @@
 let database = require("../database");
+const access_key = 'qz6IjWtEoTGZwEzdyiApKRJMBTWnpA2YrDdxrEsqkEI'
 
 let remindersController = {
   list: (req, res) => {
@@ -32,7 +33,6 @@ let remindersController = {
     let searchResult = req.user.reminders.find(function (reminder) {
       return reminder.id == reminderToFind;
     });
-    console.log(searchResult)
     if (searchResult != undefined) {
       res.render("reminder/single-reminder", { reminderItem: searchResult });
     } else {
@@ -40,16 +40,41 @@ let remindersController = {
     }
   },
 
-  create: (req, res) => {
+  create: async (req, res) => {
+    //reminder object
     let reminder = {
       id: req.user.reminders.length + 1,
       title: req.body.title,
       description: req.body.description,
       completed: false,
+      cover: ''
     };
+    //checks if own photo is uploaded
+    if (req.file) {
+      //stores cover photo path
+      reminder.cover = '/uploads/' + req.file.filename;
+    }
+    //if random photo checkbox true then
+    else if(req.body.cover) {
+      //git authorization to use api, fetch random photo
+      const response = await fetch("https://api.unsplash.com/photos/random", {
+        headers: {
+          Authorization: `Client-ID ${access_key}`
+        }
+      });
+      // convert data to json
+	    const data = await response.json(); 
+      // smallest photo size url
+      reminder.cover = data.urls['thumb'];
+    }
+    console.log("Request File: ", req.file)
+    console.log(reminder)
+    
     req.user.reminders.push(reminder);
     res.redirect("/reminders");
   },
+
+  
 
   edit: (req, res) => {
     let reminderToFind = req.params.id;

@@ -2,10 +2,13 @@
 const express = require("express");
 // executes express like a function, will give us a function
 // what this really is is an advanced server
-const app = express();
 const path = require("path");
 const ejsLayouts = require("express-ejs-layouts");
 const session = require("express-session");
+const multer = require("multer");
+const upload = multer({ dest: '/public/uploads'})
+const app = express();
+
 
 const reminderController = require("./controller/reminder_controller");
 const authController = require("./controller/auth_controller");
@@ -17,6 +20,7 @@ app.use(ejsLayouts);
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 // from express-session
 app.use(
   session({
@@ -39,15 +43,17 @@ app.get("/reminders", reminderController.list);
 app.get("/reminder/new", ensureAuthenticated, reminderController.new);
 app.get("/reminder/:id", ensureAuthenticated, reminderController.listOne);
 app.get("/reminder/:id/edit", ensureAuthenticated, reminderController.edit);
-app.post("/reminder/", reminderController.create);
+// upload.single will handle a single file upload w/ cover name
+app.post("/reminder/", upload.single('cover'), reminderController.create);
+
 
 // ⭐ Implement these two routes below!
 app.post("/reminder/update/:id", reminderController.update);
 app.post("/reminder/delete/:id", reminderController.delete);
 
 // 👌 Ignore for now
-app.get("/register", authController.register);
-app.post("/register", authController.registerSubmit);
+app.get("/auth/register", authController.register);
+app.post("/auth/register", authController.registerSubmit);
 app.get("/auth/login", authController.login);
 app.post(
   "/auth/login",
@@ -96,6 +102,6 @@ app.get(
 // We are going to localhost:3001
 app.listen(3001, function () {
   console.log(
-    "Server running. Visit: http://localhost:3001/reminders in your browser 🚀"
+    "Server running. Visit: http://localhost:3001/auth/login in your browser 🚀"
   );
 });

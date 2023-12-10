@@ -6,7 +6,16 @@
     <li class="list-group-item">
       <strong><%= reminderItem.title %>: </strong>
       <%= reminderItem.description %>
-      || Completed:
+      || 
+      <img src="/uploads/23f83e10d4f75924a4bdfa11f48f3780" alt="hello">
+      <% if (reminderItem.cover) { %>
+        <!-- Display the cover photo -->
+        <img src="<%= reminderItem.cover %>" alt="Cover Photo">
+      <% } else { %>
+        <!-- Placeholder or default image if cover photo is not available -->
+        <p>No cover photo available</p>
+      <% } %>
+      Completed:
       <% if (reminderItem.completed == true) { %>
         <span class="badge badge-success">True</span>
       <% } else if (reminderItem.completed == false) { %>

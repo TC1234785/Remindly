@@ -1,5 +1,6 @@
 let database = require("../database");
 let passport = require("../middleware/passport");
+const db = require("../database");
 
 let authController = {
   login: (req, res) => {
@@ -41,6 +42,22 @@ let authController = {
 
   registerSubmit: (req, res) => {
     // implement later
+    console.log(req.body.email)
+    let user = db.database.find((user) => user.email === req.body.email);
+    if (user) {
+      throw new Error(`${req.body.email} already registered`)
+    } else {
+      db.database.push({
+        id: 10,
+        name: "Joe Mama",
+        email: req.body.email,
+        password: req.body.password,
+        reminders: [],
+        role: "user",
+      })
+    }
+    res.render("auth/login")
+
   },
   adminview: (req, res) => {
     if (req.user.role === "admin") {

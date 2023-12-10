@@ -5,6 +5,13 @@
       <li class="list-group-item">
         <h3><strong><%= reminderItem.title %>: </strong></h3>
         <h4><%= reminderItem.description %></h4>
+        <h4> <% if (reminderItem.cover) { %>
+          <!-- Display the cover photo -->
+          <img src="<%= reminderItem.cover %>" alt="Cover Photo">
+        <% } else { %>
+          <!-- Placeholder or default image if cover photo is not available -->
+          <p>No cover photo available</p>
+        <% } %></h4>
         <h4>Completed:
           <% if (reminderItem.completed == true) { %>
             <span class="label label-success">True</span>
