@@ -26,7 +26,7 @@ function(req, res) {
   res.redirect('/');
 });
 
-// destorys session when logging out & redirect to login
+// destroys session when logging out & redirect to login
 app.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/auth/login");

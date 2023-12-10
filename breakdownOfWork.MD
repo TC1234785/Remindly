@@ -19,4 +19,38 @@ I worked on the following tasks:
 1. Edit Delete Function - When the code was made, the flags did not correctly update when the reminder option was changed. This has been fixed.
 2. Documentation - This task is responsible for the documentation in the breakdownOfWork.MD
 
-Week 2 
+Week 2 Nov 25 (Passport)
+David Tran:
+I worked on the following tasks:
+1. Refactor - Adjust code to work with Passport
+2. Login - Authorize logins using GitHub and email+password
+3. Authentication - Users can only see their own reminders
+
+Ernest Law:
+I worked on the following tasks:
+1. Refactor - Adjust code to work with Passport
+2. Admin Page - Create admin.ejs
+3. Documentation - This task is responsible for the documentation in the breakdownOfWork.MD
+
+Tobias Chau:
+I worked on the following tasks:
+1. Refactor - Adjust code to work with Passport
+2. Admin View - Create roles for each user and redirect users depending on role (Admin to /reminders/admin and Users to /reminders)
+3. Documentation - This task is responsible for the documentation in the breakdownOfWork.MD
+
+Week 3 Dec 3 (Admin and Photos) 
+David Tran:
+I worked on the following tasks:
+1. Upload or Randomize Cover Photo - Add a coverphot when creating a reminder for the user
+2. Barebones Register - Register a new user
+3. Complete Github login - Complete authentication using GitHub
+
+Ernest Law:
+I worked on the following tasks:
+1. Documentation - This task is responsible for the documentation in the breakdownOfWork.MD
+2. Syntax - Check and remove unecessary code.
+
+Tobias Chau:
+I worked on the following tasks:
+1. Admin View - Allow admin to view and revoke active sessions
+2. Upload or Randomize Cover Photo - Add a coverphot when creating a reminder for the user

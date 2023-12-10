@@ -14,8 +14,6 @@ const githubLogin = new GitHubStrategy(
     callbackURL: "http://localhost:3001/auth/github/callback",
   },
   function (accessToken, refreshToken, profile, done) {
-    console.log("I ENTERED HERE");
-    console.log(profile);
     //checks if github id is in database
     let user = userController.getUserById(profile.id)
     if (user) {
@@ -39,7 +37,6 @@ const localLogin = new LocalStrategy(
   (email, password, done) => {
     //leads to userController.js
     const user = userController.getUserByEmailIdAndPassword(email, password);
-    // console.log(user);
     //call done function, return user or false
     if (user) {
       return done(null, user);
@@ -53,7 +50,6 @@ const localLogin = new LocalStrategy(
 //creates a new session using user.id (req.session.passport.user)
 //stores user info in req.user
 passport.serializeUser(function (user, done) {
-  console.log(user);
   done(null, user.id);
 });
 //when refreshing page, function takes info stored in serializeUser (userid) to lookup in database

@@ -4,7 +4,7 @@ const access_key = 'qz6IjWtEoTGZwEzdyiApKRJMBTWnpA2YrDdxrEsqkEI'
 let remindersController = {
   list: (req, res) => {
     if (!req.user) {
-      res.redirect('auth/login'); // replace '/login' with your login route
+      res.redirect('auth/login');
     } else {
       const sessions = req.sessionStore.sessions;
       const sessionArray = Object.entries(sessions).map(
@@ -67,8 +67,6 @@ let remindersController = {
       // smallest photo size url
       reminder.cover = data.urls['thumb'];
     }
-    console.log("Request File: ", req.file)
-    console.log(reminder)
     
     req.user.reminders.push(reminder);
     res.redirect("/reminders");
