@@ -30,10 +30,18 @@ const database = [
     email: "admin@admin.com",
     password: "admin",
     reminders: [],
-    role: "admin",}
+    role: "admin",},
 ];
 
 const userModel = {
+  createUser: (gitInfo) => {
+    database.push({
+      id: gitInfo.id,
+      name: gitInfo.displayName,
+      reminders: [],
+      role: "user",
+    })
+  },
   findOne: (email) => {
     //checks database for matching user
     const user = database.find((user) => user.email === email);
@@ -44,10 +52,12 @@ const userModel = {
   },
   findById: (id) => {
     const user = database.find((user) => user.id === id);
+    console.log(database)
     if (user) {
       return user;
     }
-    throw new Error(`Couldn't find user with id: ${id}`);
+    // throw new Error(`Couldn't find user with id: ${id}`);
+
   },
 };
 

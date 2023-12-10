@@ -2,6 +2,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const userController = require("../controller/userController");
 const GitHubStrategy = require("passport-github2").Strategy;
+const userModel = require("../database").userModel;
 
 const GITHUB_CLIENT_ID = "8422f9714f621a85a250";
 const GITHUB_CLIENT_SECRET = "fa49bd8b3c5c3cb58f4037e86618b8ad11cb4bb8";
@@ -15,11 +16,16 @@ const githubLogin = new GitHubStrategy(
   function (accessToken, refreshToken, profile, done) {
     console.log("I ENTERED HERE");
     console.log(profile);
-
-    if (userController.getUserById(profile.id)) {}
-    user.getUserByID({ githubId: profile.id }, function (err, user) {
-      return done(err, user);
-    });
+    //checks if github id is in database
+    let user = userController.getUserById(profile.id)
+    if (user) {
+      return done(null, user)
+      //if not create a new db user and login
+    } else {
+      userModel.createUser(profile)
+      let user = userController.getUserById(profile.id)
+      return done(null, user)
+    }
   }
 );
 
