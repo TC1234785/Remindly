@@ -45,6 +45,17 @@ app.get("/reminder/:id", ensureAuthenticated, reminderController.listOne);
 app.get("/reminder/:id/edit", ensureAuthenticated, reminderController.edit);
 // upload.single will handle a single file upload w/ cover name
 app.post("/reminder/", upload.single('cover'), reminderController.create);
+app.get("/myList/:item1/:item2/:item3", (req, res) => {
+
+  let item1 = req.params.item1;
+  
+  let item2 = req.params.item2;
+  
+  let item3 = req.params.item3;
+  
+  console.log(item1, item2, item3);
+  
+  });
 
 
 // ⭐ Implement these two routes below!

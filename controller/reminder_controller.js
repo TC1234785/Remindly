@@ -7,6 +7,7 @@ let remindersController = {
       res.redirect('auth/login');
     } else {
       const sessions = req.sessionStore.sessions;
+      console.log(sessions)
       const sessionArray = Object.entries(sessions).map(
       ([sessionId, sessionData]) => {
         const sessionObject = JSON.parse(sessionData);
@@ -49,6 +50,7 @@ let remindersController = {
       completed: false,
       cover: ''
     };
+    console.log(req.body);
     //checks if own photo is uploaded
     if (req.file) {
       //stores cover photo path
